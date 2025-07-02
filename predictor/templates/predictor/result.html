@@ -1,0 +1,16 @@
+<!-- predictor/templates/predictor/result.html -->
+{% extends 'predictor/base.html' %}
+
+{% block content %}
+<div id="result" class="section active" style="justify-content: center; align-items: center;">
+    <div class="content-box">
+        <h1>Your Result</h1>
+        <p>Your diabetes prediction result is: <strong>{{ result }}</strong></p>
+        <p>Please consult a healthcare professional for a thorough diagnosis.</p>
+        <form method="POST" action="{% url 'logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn logout-btn">Logout</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

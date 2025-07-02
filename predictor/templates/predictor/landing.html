@@ -1,0 +1,76 @@
+<!-- predictor/templates/predictor/landing.html -->
+{% extends 'predictor/base.html' %}
+
+{% block content %}
+<div id="landing" class="section landing active">
+    <div class="image-container"></div>
+    <div class="flip-container">
+        <div class="front">
+            <div class="content-container">
+                <h1>Diabetes Predictor</h1>
+                <p>AI-powered health insights at your fingertips</p>
+                <div class="icons">
+                    <div>🤖</div>
+                    <div>🏥</div>
+                    <div>📊</div>
+                </div>
+                <button type="button" class="btn" onclick="flipTo('signup')">Sign Up</button>
+                <button type="button" class="btn" onclick="flipTo('login')">Login</button>
+            </div>
+        </div>
+
+        <!-- Back Side - Forms -->
+        <div class="back">
+            <div id="signup" class="content form-container" style="display: none; opacity: 0;">
+                <h2>Sign Up</h2>
+                {% if signup_error %}
+                    <div class="error-message">{{ signup_error }}</div>
+                {% endif %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="signup" value="1">
+                    {% for field in signup_form %}
+                        <div>
+                            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <p style="color: #ffcc00; font-size: 12px;">{{ field.errors.0 }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit">Sign Up</button>
+                </form>
+                <button type="button" onclick="flipBack()">Back</button>
+            </div>
+
+            <div id="login" class="content form-container" style="display: none; opacity: 0;">
+                <h2>Login</h2>
+
+{% if login_error %}
+    <div class="error-message" style="color: #ff4d4f; margin-bottom: 10px;">{{ login_error }}</div>
+{% endif %}
+
+{% if signup_success %}
+    <div class="success-message">{{ signup_success }}</div>
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="login" value="1">
+    {% for field in login_form %}
+        <div>
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <p style="color: #ffcc00; font-size: 12px;">{{ field.errors.0 }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+    <button type="submit">Login</button>
+</form>
+<button type="button" onclick="flipBack()">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

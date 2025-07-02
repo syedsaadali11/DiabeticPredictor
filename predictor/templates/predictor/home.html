@@ -1,0 +1,456 @@
+{% extends 'predictor/base.html' %}
+
+{% block content %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+
+    :root {
+        --primary: #6366f1;
+        --secondary: #8b5cf6;
+        --accent: #ec4899;
+        --dark: #1f2937;
+        --light: #f8fafc;
+        --gradient: linear-gradient(135deg, #6366f1 0%, #ec4899 100%);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Inter', sans-serif;
+    }
+
+    body {
+        background: var(--gradient);
+        min-height: 100vh;
+        overflow-x: hidden;
+    }
+
+    /* Glassmorphism Effect */
+    .glass {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Animated Background */
+    .animated-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: var(--gradient);
+        background-size: 400% 400%;
+        animation: gradientFlow 15s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    /* Navbar */
+    .navbar {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 1.5rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 1000;
+        transition: all 0.3s ease;
+    }
+
+    .navbar.scrolled {
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .brand {
+        font-size: 1.8rem;
+        font-weight: 700;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2.5rem;
+    }
+
+    .nav-link {
+        color: var(--dark);
+        text-decoration: none;
+        font-weight: 500;
+        padding: 0.8rem 1.2rem;
+        border-radius: 12px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .nav-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--primary);
+        transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::before {
+        width: 100%;
+    }
+
+    /* Main Content */
+    #home {
+        padding-top: 8rem;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-card {
+        width: 90%;
+        max-width: 800px;
+        padding: 4rem;
+        margin: 2rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+        transform: rotate(45deg);
+        animation: shine 6s infinite;
+    }
+
+    @keyframes shine {
+        0% { transform: rotate(45deg) translateX(-150%); }
+        100% { transform: rotate(45deg) translateX(150%); }
+    }
+
+    h1 {
+        font-size: 3rem;
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-text {
+        font-size: 1.2rem;
+        color: var(--dark);
+        margin-bottom: 2.5rem;
+        line-height: 1.8;
+        position: relative;
+    }
+
+    /* Buttons */
+    .btn-group {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 1.2rem 2.4rem;
+        border-radius: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background: var(--gradient);
+        color: white;
+        transform-style: preserve-3d;
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-3px) rotateX(15deg) rotateY(10deg);
+        box-shadow: 0 15px 30px rgba(99, 102, 241, 0.3);
+    }
+
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+    }
+
+    /* Modals */
+    .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(8px);
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        animation: modalEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes modalEnter {
+        from { opacity: 0; transform: scale(0.95); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-content {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 3rem;
+        border-radius: 25px;
+        width: 90%;
+        max-width: 600px;
+        position: relative;
+        transform-style: preserve-3d;
+    }
+
+    .modal-content::before {
+        content: '';
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: var(--gradient);
+        z-index: -1;
+        border-radius: 27px;
+        animation: borderGlow 3s infinite;
+    }
+
+    @keyframes borderGlow {
+        0%, 100% { opacity: 0.8; }
+        50% { opacity: 0.3; }
+    }
+
+    .modal-header {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+        background: var(--gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .modal-body {
+        color: var(--dark);
+        line-height: 1.8;
+        font-size: 1.1rem;
+    }
+
+    .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    .social-link {
+        font-size: 2rem;
+        color: var(--primary);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .social-link:hover {
+        transform: translateY(-5px) scale(1.2);
+        color: var(--accent);
+    }
+
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 1rem;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .hero-card {
+            padding: 2rem;
+            margin: 1rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+        }
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .modal-content {
+            padding: 2rem;
+        }
+    }
+</style>
+
+<div class="animated-bg"></div>
+
+<!-- Navbar -->
+<nav class="navbar glass">
+    <div class="brand">
+        <i class="fas fa-heartbeat"></i>
+        Diabeetic
+    </div>
+    <div class="nav-links">
+        <a href="#" class="nav-link" onclick="showAboutModal()">About</a>
+        <a href="#" class="nav-link" onclick="showContactModal()">Contact</a>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<div id="home" class="section active">
+    <div class="hero-card glass">
+        <h1>Welcome, <span class="gradient-text">{{ user.username }}</span>! 👋</h1>
+        <p class="hero-text">
+            🌟 Your journey to better health starts here. Our AI-powered diabetes risk assessment combines cutting-edge technology with medical expertise to give you personalized insights.
+        </p>
+        
+        <div class="btn-group">
+            <a href="{% url 'home' %}?section=intro" class="btn btn-primary">
+                <i class="fas fa-rocket"></i>
+                Start Free Assessment
+            </a>
+            <button onclick="showContactModal()" class="btn btn-secondary">
+                <i class="fas fa-comments"></i>
+                Quick Support
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Modals -->
+<div id="aboutModal" class="modal">
+    <div class="modal-content glass">
+        <h3 class="modal-header">About Diabeetic</h3>
+        <div class="modal-body">
+            <p>🚀 We're revolutionizing health awareness through AI. Our platform uses advanced machine learning models trained on millions of data points to provide accurate diabetes risk predictions.</p>
+            <div class="features">
+                <p><i class="fas fa-brain"></i> Triple Ensemble AI Model</p>
+                <p><i class="fas fa-shield-alt"></i> HIPAA-Compliant Security</p>
+                <p><i class="fas fa-chart-line"></i> Real-time Health Analytics</p>
+            </div>
+        </div>
+        <div class="modal-buttons">
+            <button onclick="hideModals()" class="btn btn-primary">
+                Explore More
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="contactModal" class="modal">
+    <div class="modal-content glass">
+        <h3 class="modal-header">Let's Connect 💬</h3>
+        <div class="modal-body">
+            <div class="contact-methods">
+                <p><i class="fas fa-envelope-open-text"></i> support@diabeetic.ai</p>
+                <p><i class="fas fa-mobile-alt"></i> +1 (888) 123-4567</p>
+                <p><i class="fas fa-map-marked-alt"></i> Silicon Valley, CA</p>
+            </div>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+        <div class="modal-buttons">
+            <button onclick="hideModals()" class="btn btn-primary">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', () => {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Modal Handling
+    function showAboutModal() {
+        document.getElementById('aboutModal').style.display = 'flex';
+    }
+
+    function showContactModal() {
+        document.getElementById('contactModal').style.display = 'flex';
+    }
+
+    function hideModals() {
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.style.display = 'none';
+        });
+    }
+
+    // Hover Effects
+    document.querySelectorAll('.btn').forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            btn.style.setProperty('--x', `${x}px`);
+            btn.style.setProperty('--y', `${y}px`);
+        });
+    });
+
+    // Interactive Background
+    document.addEventListener('mousemove', (e) => {
+        document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+        document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    });
+
+    // Dynamic Gradient Rotation
+    let rotation = 0;
+    setInterval(() => {
+        rotation = (rotation + 0.2) % 360;
+        document.documentElement.style.setProperty('--gradient-rotation', `${rotation}deg`);
+    }, 50);
+</script>
+{% endblock %}

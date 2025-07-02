@@ -1,0 +1,15 @@
+{% extends 'predictor/base.html' %}
+
+{% block content %}
+<div id="about" style="display: none; opacity: 0;">
+    <div class="content-container full-width">
+        <h1>About Us</h1>
+        <p>We are a team dedicated to using AI to help people understand their health risks, starting with diabetes prediction.</p>
+        <button class="btn" onclick="showSection('home')">Back to Home</button>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    .full-width { width: 100vw; height: 100vh; }
+</style>

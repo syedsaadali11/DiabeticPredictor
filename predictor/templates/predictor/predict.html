@@ -1,0 +1,16 @@
+{% extends 'predictor/base.html' %}
+
+{% block content %}
+<div id="predict" style="display: none; opacity: 0;">
+    <div class="content-container full-width">
+        <h1>Predict Your Diabetes Risk</h1>
+        <p>Answer a few questions to get an AI-powered prediction of your diabetes risk.</p>
+        <button class="btn" onclick="showSection('question')">Start Questionnaire</button>
+        <button class="btn" onclick="showSection('home')">Back to Home</button>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    .full-width { width: 100vw; height: 100vh; }
+</style>
