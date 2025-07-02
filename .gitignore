@@ -1,59 +1,23 @@
-# Python
+# ── Python / Django ──────────────────────────────────────────
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-*.so
-
-# Virtual environment
-env/
-venv/
-ENV/
-.venv/
-*.env
-
-# Jupyter Notebook checkpoints
-.ipynb_checkpoints/
-
-# Django
 *.sqlite3
-db.sqlite3
 *.log
-*.pot
-*.pyc
 
-# VS Code settings
+# ── Virtual environments ─────────────────────────────────────
+env/
+.venv/
+
+# ── IDE / editor ─────────────────────────────────────────────
 .vscode/
-.history/
+.idea/
 
-# System
-.DS_Store
-Thumbs.db
+# ── Data & models (kept locally, never in Git)  ──────────────
+predictor/models/
+diabetes_predictor/*.csv
+staticfiles/
 
-# Pip package listing
-global_packages.txt
-
-# Dataset
-diabetes_predictor/diabetes_012_health_indicators_BRFSS2015.csv
-
-# Model artifacts
-diabetes_predictor/models/*.cbm
-diabetes_predictor/models/*.json
-diabetes_predictor/models/*.txt
-diabetes_predictor/models/*.pkl
-
-# Optional test/debug files
-synthetic_validation.csv
-*.png
-*.jpg
-
-# Backup or temp files
-*.bak
-*.old
-*.tmp
-*.swp
-
-# Ignore compiled files or artifacts
-*.egg-info/
+# ── Node or other misc junk (if ever added) ─────────────────
+node_modules/
 dist/
 build/
