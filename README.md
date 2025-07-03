@@ -64,5 +64,27 @@ To provide an accessible and intelligent diabetes screening tool for the general
 
 ---
 
+## 🔍 App Walkthrough (Screenshots)
+
+### 🏠 Home Page
+![Home](assets/home.png)
+
+### 👤 Login Page
+![Login](assets/login.png)
+
+### 🧭 Intro Screen
+![Intro](assets/intro.png)
+
+### ❓ Sample Questions
+![Question 1](assets/question1.png)
+![Question 2](assets/question2.png)
+
+### ✅ Sample Results
+![Result: No Diabetes](assets/result1.png)
+![Result: Pre-Diabetes](assets/result2.png)
+![Result: Diabetes](assets/result3.png)
+
+### 🏁 Finish Screen
+![Finish](assets/finishassesment.png)
 
 
