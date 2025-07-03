@@ -66,14 +66,11 @@ To provide an accessible and intelligent diabetes screening tool for the general
 
 ## 🔍 App Walkthrough (Screenshots)
 
-### 🏠 Home Page
-![Home](assets/home.png)
-
 ### 👤 Login Page
 ![Login](assets/login.png)
 
-### 🧭 Intro Screen
-![Intro](assets/intro.png)
+### 🧭 Home Screen
+![Home](assets/intro.png)
 
 ### ❓ Sample Questions
 ![Question 1](assets/question1.png)
@@ -87,4 +84,17 @@ To provide an accessible and intelligent diabetes screening tool for the general
 ### 🏁 Finish Screen
 ![Finish](assets/finishassesment.png)
 
+---
+
+---
+
+### 📬 Contact
+
+For feedback, suggestions, or collaboration:
+
+- 👤 **Syed Saad Ali**  
+- 📧 Email: [syedsaadi427@gmail.com](mailto:syedsaadi427@gmail.com)  
+- 🔗 GitHub: [@syedsaadali11](https://github.com/syedsaadali11)
+
+---
 
